@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Improving MATLAB</title>
+</head>
+<body>
+<div id="layout-content">
+<div id="toptitle">
+<h1>Improving MATLAB</h1>
+<div id="subtitle"><a href="http://www.stanford.edu/~echu508">Eric Chu</a></div>
+</div>
+<p>MATLAB is quite a package. Among the many things it is, MATLAB is essentially 
+a wrapper around BLAS routines and LAPACK. However, MATLAB does not
+necessarily ship with a BLAS library which is optimized for your particular OS
+and, more importantly, your particular hardware configuration.</p>
+<p>The existence of <a href="http://math-atlas.sourceforge.net/">ATLAS</a> probably proves
+the point. While MATLAB comes shipped with a BLAS library, usually MKL or
+ACML, depending on the type of processor it's installed on (Intel or ADM,
+respectively), those libraries may not be optimized for your particular setup.</p>
+<p>If you're feeling courageous, compiling an ATLAS-optimized BLAS and LAPACK
+library may be one way to go, but I'm going to use Goto BLAS as the example.</p>
+<p>Once we have a better BLAS library than what is shipped by MATLAB, we can
+trick MATLAB in to using this BLAS library.</p>
+<p>For the record, these were the steps I followed to obtain a faster BLAS for
+Mac OSX 10.7, Lion. I believe the same instructions apply to Windows and Linux
+versions of MATLAB, but with the appropriate <tt>grep</tt>/<tt>sed</tt>/<tt>awk</tt> commands
+applied to Mac specific paths and library extensions. My MATLAB version is 7.7
+(R2008b).</p>
+<h2>Goto BLAS</h2>
+<p>Since Goto BLAS is technically not maintained anymore, I have been using
+<a href="http://prs.ism.ac.jp/~nakama/SurviveGotoBLAS2/">SurviveGotoBLAS2</a>, which has
+updated Makefiles for various architectures (especially for Mac OSX 10.7,
+Lion).</p>
+<p>After I downloaded and unzipped the archive, I ran</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+make BINARY=32 CC="gcc-4.2 -arch i386" NO_LAPACK=1 NO_CBLAS=1
+</pre></div></div>
+<p>This will generate a 32-bit binary for MATLAB. Unless you're using one of the
+newer versions of MATLAB, it will expect 32-bit binaries. Making 64-bit
+binaries only requires changing the flags <tt>BINARY=64 CC=&ldquo;gcc-4.2 -arch x86_64&rdquo;</tt>.
+Note that the <tt>CC</tt> options are for compiling on Mac OSX 10.7. </p>
+<p>If you have a Windows machine or a Linux machine, I'm sure the options look
+different; maybe the default <tt>make</tt> will just run fine. If that's the case,
+congratulations, you are one of the lucky few.</p>
+<h3>Other notes</h3>
+<p>I found that evoking <tt>gcc</tt> from the command line in OSX Lion uses the LLVM compiler. This causes problem when trying to compile the dylib.</p>
+<p>You may find it useful to also compile LAPACK, though that requires a Fortran
+compiler, which is a whole other set of problems on the Mac.</p>
+<p>I had the <tt>gfortran</tt> compiler downloaded from
+<a href="http://gcc.gnu.org/wiki/GFortranBinaries">GNU</a>. This installation does the
+silly thing of installing your libraries under <tt>/usr/local/gfortran</tt>, so the
+Goto BLAS compilation may throw an error when you compile LAPACK, complaining
+that it can't find <tt>libgfortran</tt>. To remedy this, add</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+-L/usr/local/gfortran/lib
+</pre></div></div>
+<p>to <tt>EXTRALIB</tt> in <tt>exports/Makefile</tt> under the <tt>Darwin</tt> section.</p>
+<h2>Souping up MATLAB</h2>
+<p>Once Goto BLAS has compiled (you'll have a file that looks something like
+<tt>libgoto2_penrynp-r3.14.dylib</tt>), copy it to the appropriate MATLAB application
+folder. For me, it looked like this:</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+sudo cp lib2goto2_penrynp-r3.14.dylib /Applications/MATLAB_R2008b.app/bin/maci/
+</pre></div></div>
+<p>Next, use your favorite editor and open up
+<tt>/Applications/MATLAB_R2008b.app/bin/maci/blas.spec</tt>. You'll find a line (or
+several) that look like</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+GenuineIntel Family  * Model  * mkl.dylib mklcompat.dylib #Intel Mac
+</pre></div></div>
+<p>These lines tell MATLAB which BLAS library to use. Simply change the filenames
+for your corresponding architecture to point to your Goto BLAS, and now you're
+all done!</p>
+<h3>A cleaner alternative</h3>
+<p>Alternatively, if you would rather not muck with the MATLAB application folder, you can export the environment variable <tt>BLAS_VERSION</tt>.</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+export BLAS_VERSION=/path/to/lib2goto2_penrynp-r3.14.dylib
+</pre></div></div>
+<p>Note that you must do this before running MATLAB (via command line). Consider putting it in your <tt>.bashrc</tt> or <tt>.profile</tt> file.</p>
+<h2>Results</h2>
+<p>Your mileage may vary depending on your version of MATLAB. I think later versions have better MKL libraries.</p>
+<p>(Coming soon&hellip; or when I get around to doing a real analysis&hellip;.)</p>
+<h2>Comments and suggestions</h2>
+<p>I made this page because I spent way too much time trying to compile Goto BLAS
+on Lion. If you manage to accomplish the same thing on a different OS or a
+different version of MATLAB or if you have any suggestions about this page
+(did it work?), feel free to <a href="mailto:echu508@stanford.edu">let me know</a>, and I'll
+report it here.</p>
+<p>Thanks to <a href="mailto:srbecker@caltech.edu">Stephen Becker</a> for catching some errors and for simplifying the process!</p>
+<div id="footer">
+<div id="footer-text">
+Page generated 2012-03-05 11:45:28 PST, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
+</div>
+</div>
+</div>
+</body>
+</html>
