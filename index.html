@@ -1,120 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<link rel="stylesheet" href="person.css" type="text/css" />
-<title>Eric Chu</title>
-</head>
-<body>
-<div id="layout-content">
-<div id="toptitle">
-<h1>Eric Chu</h1>
+---
+layout: default
+---
+
+<div class="home">
+
+  <div class="posts">
+    {% for post in paginator.posts %}
+      <div class="post py3">
+        <p class="post-meta">{{ post.date | date: site.date_format }}</p>
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="h1 post-title">{{ post.title }}</h3></a>
+        <p class="post-summary">
+          {% if post.summary %}
+            {{ post.summary }}
+          {% else %}
+            {{ post.excerpt }}
+          {% endif %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% include pagination.html %}
 </div>
-<table class="imgtable"><tr><td>
-<img src="echu.jpg" alt="Eric Chu" width="250px" height="167px" />&nbsp;</td>
-<td align="left"><p><a href="http://stanford.edu/~echu508/">Eric Chu</a><br />
-Ph.D. Candidate<br />
-<a href="http://ee.stanford.edu/">Department of Electrical Engineering</a><br />
-<a href="http://www.stanford.edu/">Stanford University</a><br /><br />
-Advisors: <a href="http://www.stanford.edu/~gorin/">Dr. Dimitry Gorinevsky</a> and
-<a href="http://www.stanford.edu/~boyd/">Professor Stephen Boyd</a><br /><br />
-<a href="resume.pdf">My Resume</a> (pdf)</p>
-</td></tr></table>
-<h2>Contact</h2>
-<p>Packard 243, Stanford, CA 94305<br />
-(650) 723-9833<br />
-<a href="mailto:echu508@stanford.edu">echu508@stanford.edu</a></p>
-<h2>Research</h2>
-<ul>
-<li><p>Domain specific languages</p>
-</li>
-<li><p>Large scale convex optimization and applications</p>
-</li>
-<li><p>Smart grid</p>
-</li>
-<li><p>Robotics</p>
-</li>
-<li><p>Image processing and computer vision</p>
-</li>
-</ul>
-<h2>Papers</h2>
-<p><a href="http://scholar.google.com/citations?user=3nQ-eq4AAAAJ&amp;hl=en">Google Scholar</a> has a selection of paper I've written, including some hilarious paper I wrote freshman year of college.</p>
-<p>Some more recent work:</p>
-<ul>
-<li><p><a href="http://stanford.edu/~boyd/papers/ecos_codegen_ecc.html">Code Generation for Embeddeded Second-Order Cone Programming</a>. E. Chu, N.Parikh, A. Domahidi, and S. Boyd. <i>Proceedings of ECC 2013</i>. Jul, 2013.</p>
-</li>
-<li><p><a href="http://stanford.edu/~boyd/papers/ecos.html">ECOS: An SOCP Solver for Embedded Systems</a>. A. Domahidi, E. Chu, and S. Boyd. <i>Proceedings of ECC 2013</i>. Jul, 2013.</p>
-</li>
-<li><p><a href="http://stanford.edu/~boyd/papers/msg_pass_dyn.html">Message Passing for Dynamic Network Energy Management</a>. M. Kraning, E. Chu, J. Lavaei, and S. Boyd. In submission.</p>
-</li>
-<li><p><a href="http://www.stanford.edu/~boyd/papers/admm_distr_stats.html">Distributed Optimization and Statistical Learning via the Alternating
-Direction Method of Multipliers</a>. S. Boyd, N. Parikh, E. Chu,
-B. Peleato, and J.Eckstein. <i>Foundations and Trends in Machine Learning</i>.
-Michael Jordan, Editor in Chief. 3(1):1-122, 2011.</p>
-</li>
-<li><p><a href="http://www.willowgarage.com/papers/using-near-field-stereo-vision-robotic-grasping-cluttered-environments">Using Near-Field Stereo for Robotic Grasping in Cluttered Environments</a>.
-A.Leeper, K. Hsiao, E. Chu, and K. Salisbury. <i>Proceedings of ISER 2010</i>. Dec, 2010.</p>
-</li>
-<li><p><a href="http://www.stanford.edu/~boyd/papers/detect_aircraft_anom.html">Detecting
-Aircraft Performance Anomalies from Cruise Flight Data</a>. E. Chu, D.
-Gorinevsky, and S. Boyd. <i>Proceedings AIAA@Aerospace</i>. April, 2010.
-
-
-
-
-
-</p>
-</li>
-</ul>
-<h2>Patents</h2>
-<ul>
-<li><p>Jack L. Skinner, Harvey Ho, Eric Chu. Passive Hybrid Sensing Tag with Flexible Substrate Saw Device. US Patent 12/777,355, filed May 11, 2010.</p>
-</li>
-</ul>
-<h2>Teaching</h2>
-<p>Teaching assistant at Stanford University for:</p>
-<ul>
-<li><p>Convex Optimization I (<a href="http://www.stanford.edu/class/ee364a">EE364a</a>), Winter 2011, 2012</p>
-</li>
-<li><p>Convex Optimization II (<a href="http://www.stanford.edu/class/ee364b">EE364b</a>), Spring 2011</p>
-</li>
-</ul>
-<h2>Education</h2>
-<ul>
-<li><p>MS, Electrical Engineering, <a href="https://www.stanford.edu">Stanford University</a>, June 2007</p>
-</li>
-<li><p>BS, Electrical Engineering with Distinction, <a href="http://www.stanford.edu">Stanford University</a>, June 2006</p>
-</li>
-</ul>
-<h2>Awards</h2>
-<ul>
-<li><p>2010 Pan Wen-Yuan Scholarship Foundation recipient</p>
-</li>
-<li><p>2009 National Science Foundation Honorable Mention</p>
-</li>
-<li><p><a href="https://www.hertzfoundation.org/lib/literature/Hertz_Finalists_2008_01.pdf">2008 Hertz Foundation Fellowship Finalist</a></p>
-</li>
-<li><p><a href="http://soe.stanford.edu/about/terman_awards/2005_2006_terman_awards.html">Frederick E. Terman Engineering Scholastic Award</a></p>
-</li>
-<li><p><a href="http://www.tbp.org">Tau Beta Pi</a></p>
-</li>
-<li><p><a href="http://www.pbk.org">Phi Beta Kappa</a></p>
-</li>
-</ul>
-<h2>Miscellaneous Goodies</h2>
-<ul>
-<li><p><a href="matlab.html">Improving MATLAB</a></p>
-</li>
-</ul>
-<div id="footer">
-<div id="footer-text">
-Page generated 2013-08-20 19:37:54 PDT, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
-(<a href="index.jemdoc">source</a>)
-</div>
-</div>
-</div>
-</body>
-</html>
