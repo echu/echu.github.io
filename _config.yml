@@ -12,6 +12,7 @@ google_analytics: "UA-68317194-1"
 google_verification:
 
 # Optional features
+mathjax:              true
 animated:             true
 show_related_posts:   true
 show_post_footers:    true
