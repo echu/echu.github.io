@@ -116,7 +116,7 @@ def get_result(job_id):
 if __name__ == "__main__":
     i = 0
     while True:
-      print(process_record({'work': i}))
+      print(process_job({'work': i}))
       i += 1
 {% endhighlight %}
 
@@ -132,7 +132,7 @@ conn = disq.Disque()
 
 def process_record():
     qname, job_id, job = conn.getjob('worker')[0]
-    print("got job", job_id)
+    print("got job {}".format(job_id))
     try:
         result = do_stuf_with(job)
     finally:
