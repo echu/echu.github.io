@@ -26,6 +26,8 @@ def foobar():
 
 For code literals, I will also use backticks, `3`, `"abc"`, *etc*.
 
+I also use backticks to refer to paths on a filesystem, such as `/home/foobar`, and I use shell variable expansion `$YOUR_API_KEY` to refer to user-dependent environment variables. 
+
 Finally, I use long variable names for naming functions, classes, modules, *etc*. I do this even when naming variables corresponding to mathematical objects:
 
 {% highlight python3 lineanchors %}
