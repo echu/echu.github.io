@@ -3,7 +3,7 @@ layout:     post
 title:      Hello, World
 date:       2015-10-01
 summary:    The reason for existence, a raison d'être.
-categories: hello
+categories: intro
 ---
 
 I started this blog to keep track of various working notes, code, math,
