@@ -2,7 +2,8 @@
 layout: post
 title: TLSH, Hamming codes, hashes, and S3 buckets
 summary: How to efficiently find things that are close to one another.
-categories: tech distance metric hash
+categories: math
+tags: distance metric hash
 ---
 
 We have a dataset that requires a bit of exploratory analysis at scale in order
@@ -82,3 +83,7 @@ Hamming distance between the hashes is used in the metric space.
 
 ## So have you tried this?
 No. But I want to.
+
+Concentration of Gaussian measures  http://www.math.lsa.umich.edu/~barvinok/total710.pdf
+
+prob (|d(Pi x, Pi y) - d(x,y)| < epsilon)
