@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      A word on notation
-summary:    A description of the notation this blog uses
+summary:    A description of the notation this blog uses.
 date:       2015-10-07
 categories: intro
 tags:       notation math programs code
@@ -26,7 +26,7 @@ def foobar():
 
 For code literals, I will also use backticks, `3`, `"abc"`, *etc*.
 
-I also use backticks to refer to paths on a filesystem, such as `/home/foobar`, and I use shell variable expansion `$YOUR_API_KEY` to refer to user-dependent environment variables. 
+I also use backticks to refer to paths on a filesystem, such as `/home/foobar`, and I use shell variable expansion `$YOUR_API_KEY` to refer to user-dependent environment variables.
 
 Finally, I use long variable names for naming functions, classes, modules, *etc*. I do this even when naming variables corresponding to mathematical objects:
 
